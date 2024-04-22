@@ -20,5 +20,11 @@ print(session.sql("select current_warehouse(), current_database(), current_schem
 
 session.sql("USE WAREHOUSE COMPUTE_WH").collect()
 
+customer_df =  session.table("SNOWFLAKE_SAMPLE_DATA.TPCH_SF1.CUSTOMER")
+filter_customers = customer_df.filter(col("C_MKTSEGMENT") == 'HOUSEHOLD')
+select_customers = filter_customers.select(col("C_NAME"), col("C_ADDRESS"))
+select_customers.show()
+print(select_customers.count())
+
 
 
